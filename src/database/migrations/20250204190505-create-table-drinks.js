@@ -3,38 +3,40 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up (queryInterface, Sequelize) {
-
-    return queryInterface.createTable('clients', {
-      id: {
+    return queryInterface.createTable('Drinks', {
+      id_drink: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
+      drink_name: {
+        type: Sequelize.STRING(45),
+        allowNull: false,
+        unique: {
+          msg: "Bebida já existe"
+        }
+      },
+      price: {
+        type: Sequelize.DECIMAL(3, 2),
         allowNull: false,
       },
-      lastname: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      numberPhone: {
-        type: Sequelize.STRING,
+      stock_qnt: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       updated_at: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       }
     })
   },
 
-  down (queryInterface) {
-    return queryInterface.dropTable('clients');
+  down (queryInterface, Sequelize) {
+    return queryInterface.dropTable('Drinks');
   }
 };
