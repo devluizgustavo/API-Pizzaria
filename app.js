@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
-import clientRoutes from './src/routes/ClientRoutes.js'
+import clientRoutes from './src/routes/ClientRoutes.js';
 
 import './src/database';
 
@@ -18,7 +18,7 @@ class App {
   }
 
   routes() {
-    this.app.use('/clients/', clientRoutes);
+    this.app.use('/clients', clientRoutes);
   }
 }
 
