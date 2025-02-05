@@ -32,6 +32,14 @@ module.exports = {
         type: Sequelize.STRING(45),
         allowNull: false,
       },
+      city: {
+        type: Sequelize.STRING(45),
+        allowNull: true,
+      },
+      state: {
+        type: Sequelize.STRING(45),
+        allowNull: true,
+      },
       house_number: {
         type: Sequelize.STRING(8),
         allowNull: false,
