@@ -20,15 +20,11 @@ module.exports = {
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING(60),
+        type: Sequelize.STRING(150),
         allowNull: false,
       },
       price: {
-        type: Sequelize.DECIMAL(5, 2),
-        allowNull: false,
-      },
-      stock_qnt: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL(7, 2),
         allowNull: false,
       },
       created_at: {
