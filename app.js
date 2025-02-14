@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
-import clientRoutes from './src/routes/ClientRoutes.js';
+import CustomerRoutes from './src/routes/CustomerRoutes.js';
+import UserRoutes from './src/routes/UserRoutes.js';
+import TokenRoutes from './src/routes/TokenRoutes.js';
 
 import './src/database';
 
@@ -18,7 +20,9 @@ class App {
   }
 
   routes() {
-    this.app.use('/clients', clientRoutes);
+    this.app.use('/users/', UserRoutes);
+    this.app.use('/customers/', CustomerRoutes);
+    this.app.use('/tokens/', TokenRoutes);
   }
 }
 
