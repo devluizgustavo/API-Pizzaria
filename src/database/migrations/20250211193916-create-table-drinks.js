@@ -3,8 +3,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up (queryInterface, Sequelize) {
-    return queryInterface.createTable('Drinks', {
-      id_drink: {
+    return queryInterface.createTable('drinks', {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
@@ -13,9 +13,7 @@ module.exports = {
       drink_name: {
         type: Sequelize.STRING(45),
         allowNull: false,
-        unique: {
-          msg: "Bebida já existe"
-        }
+        unique: true,
       },
       price: {
         type: Sequelize.DECIMAL(3, 2),
@@ -37,6 +35,6 @@ module.exports = {
   },
 
   down (queryInterface, Sequelize) {
-    return queryInterface.dropTable('Drinks');
+    return queryInterface.dropTable('drinks');
   }
 };

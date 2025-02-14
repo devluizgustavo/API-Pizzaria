@@ -3,19 +3,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('Customers', {
-      id_customer: {
+    return queryInterface.createTable('customers', {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
       },
-      cpf: {
-        type: Sequelize.STRING(11),
+      id_user: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        unique: {
-          msg: 'O CPF já está cadastrado'
+        references: {
+          model: 'users',
+          key: 'id'
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
+      cpf: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       name: {
         type: Sequelize.STRING(40),
@@ -36,7 +44,7 @@ module.exports = {
     })
   },
 
-  down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Customers')
+  down(queryInterface) {
+    return queryInterface.dropTable('customers')
   }
 };

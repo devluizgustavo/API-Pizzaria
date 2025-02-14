@@ -3,39 +3,45 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up (queryInterface, Sequelize) {
-    return queryInterface.createTable('delivery', {
-      id_delivery: {
+    return queryInterface.createTable('contacts', {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
       },
-      id_order: {
+      id_customer: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'orders',
-          key: 'id_order',
+          model: 'customers',
+          key: 'id'
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      status: {
-        type: Sequelize.STRING(45),
+      number_phone: {
+        type: Sequelize.STRING(11),
         allowNull: false,
+        unique: true,
       },
-      delivery_forecast: {
-        type: Sequelize.TIME,
-        allowNull: false,
+      email: {
+        type: Sequelize.STRING(50),
+        allowNull: true,
+        unique: true,
       },
-      dt_delivery: {
+      created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      }
     })
   },
 
   down (queryInterface, Sequelize) {
-    return queryInterface.dropTable('delivery');
+    return queryInterface.dropTable('Contacts');
   }
 };

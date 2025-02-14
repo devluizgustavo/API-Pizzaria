@@ -9,7 +9,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'orders',
-          key: 'id_order'
+          key: 'id'
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
@@ -19,7 +19,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'drinks',
-          key: 'id_drink'
+          key: 'id'
         }
       },
       quantity: {

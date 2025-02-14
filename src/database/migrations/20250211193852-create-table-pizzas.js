@@ -4,7 +4,7 @@
 module.exports = {
   up (queryInterface, Sequelize) {
     return queryInterface.createTable('pizzas', {
-      id_pizza: {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
@@ -13,9 +13,7 @@ module.exports = {
       pizza_name: {
         type: Sequelize.STRING(45),
         allowNull: false,
-        unique: {
-          msg: "A pizza já existe"
-        }
+        unique: true,
       },
       size: {
         type: Sequelize.STRING(30),

@@ -9,7 +9,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'orders',
-          key: 'id_order'
+          key: 'id'
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
@@ -19,7 +19,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'pizzas',
-          key: 'id_pizza'
+          key: 'id'
         }
       },
       quantity: {
@@ -29,7 +29,7 @@ module.exports = {
     })
   },
 
-  down (queryInterface, Sequelize) {
+  down (queryInterface) {
     return queryInterface.dropTable('orders-by-pizzas');
   }
 };
