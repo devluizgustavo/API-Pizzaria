@@ -11,12 +11,12 @@ export default class Address extends Model {
             msg: 'O endereço já está associado com esse usuário'
           },
           validate: {
-            notNull: {
-              msg: "Campo cep é obrigatório."
-            },
             len: {
-              args: [8],
-              msg: "O CEP digitado é inválido."
+              args: [8, 8],
+              msg: "O CEP é inválido."
+            },
+            isNumeric: {
+              msg: "O campo CEP deve conter somente números."
             }
           },
         },
@@ -27,6 +27,10 @@ export default class Address extends Model {
             notNull: {
               msg: "Campo rua é obrigatório."
             },
+            is: {
+              args: /^[A-Za-zÀ-ÿ\s]+$/i,
+              msg: "O campo rua deve conter apenas letras."
+            }
           },
         },
         neighborhood: {
@@ -36,6 +40,10 @@ export default class Address extends Model {
             notNull: {
               msg: "Campo bairro é obrigatório."
             },
+            is: {
+              args: /^[A-Za-zÀ-ÿ\s]+$/i,
+              msg: "O campo bairro deve conter apenas letras."
+            }
           },
         },
         city: {
@@ -44,6 +52,10 @@ export default class Address extends Model {
           validate: {
             notNull: {
               msg: "Campo cidade é obrigatório."
+            },
+            is: {
+              args: /^[A-Za-zÀ-ÿ\s]+$/i,
+              msg: "O campo cidade deve conter apenas letras."
             }
           }
         },
@@ -51,12 +63,13 @@ export default class Address extends Model {
           type: Sequelize.STRING(2),
           allowNull: false,
           validate: {
-            notNull: {
-              msg: "Campo estado é obrigatório."
-            },
             len: {
               args: [2],
               msg: "Estado deve conter somente 2 caracteres."
+            },
+            is: {
+              args: /^[A-Za-zÀ-ÿ\s]+$/i,
+              msg: "O campo rua deve conter apenas letras."
             }
           }
         },
@@ -68,6 +81,9 @@ export default class Address extends Model {
             notNull: {
               msg: "É obrigatório informar o número da casa."
             },
+            isNumeric: {
+              msg: "O numero da casa não pode conter letras."
+            }
           },
         },
         complement: {

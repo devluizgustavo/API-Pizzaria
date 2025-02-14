@@ -12,17 +12,20 @@ export default class Contact extends Model {
           },
           validate: {
             len: {
-              args: [11],
-              msg: "Campo telefone deve ter 11 caracteres."
+              args: [11, 11],
+              msg: "Campo telefone deve conter 11 caracteres."
             },
-            notEmpty: {
-              msg: "Campo telefone não pode estar vazio"
+            isNumeric: {
+              msg: "Campo telefone não pode ter letras e nem traços."
             }
           },
         },
         email: {
           type: DataTypes.STRING(50),
           allowNull: true,
+          unique: {
+            msg: "E-mail já está vinculado a outro cliente."
+          },
           validate: {
             isEmail: {
               msg: "E-mail inválido"
