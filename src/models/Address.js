@@ -17,6 +17,9 @@ export default class Address extends Model {
             },
             isNumeric: {
               msg: "O campo CEP deve conter somente números."
+            },
+            notNull: {
+              msg:"O campo CEP é obrigatório."
             }
           },
         },
@@ -70,6 +73,9 @@ export default class Address extends Model {
             is: {
               args: /^[A-Za-zÀ-ÿ\s]+$/i,
               msg: "O campo rua deve conter apenas letras."
+            },
+            notNull: {
+              msg:"O campo estado é obrigatório."
             }
           }
         },
