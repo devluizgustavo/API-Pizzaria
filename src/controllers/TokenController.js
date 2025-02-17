@@ -34,10 +34,13 @@ class TokenController {
 
       return res.status(200).json({ token });
     } catch(e) {
-      console.error(e);
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 }

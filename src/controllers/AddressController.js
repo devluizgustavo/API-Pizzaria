@@ -81,11 +81,19 @@ class AddressController {
         address: address
       });
     } catch (e) {
+      console.log(e);
       // Caso o endereço novo seja igual a algum endereço já vinculado no cliente
       if (e.name === 'SequelizeUniqueConstraintError') {
         return res.status(400).json({ errors: [`O cliente já possui esse endereço`] })
       }
-      return res.status(404).json({ errors: e.errors.map(err => err.message) });
+
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -117,10 +125,13 @@ class AddressController {
 
       return res.status(200).json({ msg: "Endereço Atualizado com Sucesso.", address: addressUpdate})
     } catch (e) {
-      console.error(e);
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      })
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -156,10 +167,13 @@ class AddressController {
 
       return res.status(200).json({ msg: "O endereço foi apagado com sucesso." });
     } catch (e) {
-      console.error(e)
-      return res.status(404).json({
-        errors: e.erros.map(err => err.message)
-      })
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });  
     }
   }
 }

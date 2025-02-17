@@ -28,12 +28,13 @@ class CustomerController {
 
       return res.status(200).json({ customers });
     } catch (e) {
-      console.error(e);
-      if (e.errors) {
-        return res.status(404).json({
-          errors: e.errors.map(err => err.message)
-        })
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -57,15 +58,19 @@ class CustomerController {
 
       return res.status(200).json(customer);
     } catch(e) {
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      })
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
   async store(req, res) {
     // Pegar os dados do cliente na requisição
-    const { cpf, name, lastname, contactList, addressList } = req.body;
+    const { cpf="", name="", lastname, contactList, addressList } = req.body;
     const userFromTokenID = req.id_user;
 
     // Instanciar o Sequelize
@@ -74,9 +79,6 @@ class CustomerController {
 
     try {
       // Caso dados pessoais do cliente não sejam enviados
-      if (!cpf || !name || !lastname) {
-        return res.status(400).json({ errors: ["Nome, CPF e Sobrenome são dados obrigatórios."] });
-      }
       if (!contactList || contactList.length === 0) {
         return res.status(400).json({ errors: ["É necessário que haja ao menos 1 telefone para contato.", "É necessário que ao menos um endereço seja cadastrado."] });
       }
@@ -111,12 +113,16 @@ class CustomerController {
       // Retornar sucesso
       return res.status(200).json({ msg: ["Cliente cadastrado com sucesso"] });
     } catch (e) {
-      console.error(e);
       // Se algo der errado, fazemos um rollback na transação
       await transaction.rollback();
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      })
+
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -141,12 +147,13 @@ class CustomerController {
 
       return res.status(200).json({ msg: "Dados Atualizados com Sucesso.", customerUpdate})
     } catch (e) {
-      console.error(e);
-      if (e.errors) {
-        return res.status(404).json({
-          errors: e.errors.map(err => err.message)
-        });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -168,10 +175,13 @@ class CustomerController {
         msg: "Cliente deletado com sucesso."
       });
     } catch (e) {
-      console.error(e);
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });  
     }
   }
 }

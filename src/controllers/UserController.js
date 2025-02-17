@@ -16,9 +16,13 @@ class UserController {
 
       return res.status(200).json(users);
     } catch(e) {
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      })
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -39,9 +43,13 @@ class UserController {
 
       return res.status(200).json(user);
     } catch(e) {
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -61,12 +69,13 @@ class UserController {
         password: password
       })
     } catch(e) {
-      console.error(e);
-      if (e.errors) {
-        return res.status(404).json({
-          errors: e.errors.map(err => err.message)
-        });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -91,11 +100,13 @@ class UserController {
         user: userUpdate
       })
     } catch(e) {
-      console.log(e);
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
 
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 
@@ -115,9 +126,13 @@ class UserController {
 
       return res.status(200).json({msg: "Usuário apagado com sucesso."});
     } catch(e) {
-      return res.status(404).json({
-        errors: e.errors.map(err => err.message)
-      });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });  
     }
   }
 }
