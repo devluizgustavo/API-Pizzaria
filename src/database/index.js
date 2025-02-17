@@ -5,8 +5,9 @@ import Address from '../models/Address';
 import Customer from '../models/Customer';
 import Contact from "../models/Contact";
 import User from "../models/User";
+import Pizza from "../models/Pizza";
 
-const models = [Address, Customer, Contact, User]
+const models = [Address, Customer, Contact, User, Pizza]
 
 const connection = new Sequelize(database);
 
