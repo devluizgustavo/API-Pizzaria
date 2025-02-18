@@ -78,12 +78,7 @@ class PizzaController {
   async update(req, res) {
     try {
       const { id } = req.params;
-      const { pizza_name = "", size = "", description = "", price = "" } = req.body;
-
-      // Verificar se todos os campos foram preenchidos
-      if (!pizza_name || !size || !description || !price) {
-        return res.status(400).json({ errors: ["Os dados não foram enviados."] });
-      }
+      const { pizza_name, size, description, price } = req.body;
 
       // Buscar a pizza pelo ID
       const pizza = await Pizza.findByPk(id, {
@@ -114,9 +109,7 @@ class PizzaController {
       const { id } = req.params;
 
       // Buscar a pizza pelo ID
-      const pizza = await Pizza.findByPk(id, {
-        attributes: ["id", "pizza_name", "size", "description", "price"]
-      });
+      const pizza = await Pizza.findByPk(id);
 
       if (!pizza) {
         return res.status(400).json({ errors: ["A pizza não foi encontrada ou não existe."] });

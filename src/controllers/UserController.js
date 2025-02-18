@@ -82,6 +82,7 @@ class UserController {
   async update(req, res){
     try {
       const { id } = req.params;
+      const { nome, login } = req.body;
 
       const user = await User.findByPk(id, {
         attributes: ["id", "nome", "login"]
@@ -93,7 +94,7 @@ class UserController {
         });
       }
 
-      const userUpdate = await user.update(req.body);
+      const userUpdate = await user.update({ nome, login });
 
       return res.status(200).json({
         msg: "Dados Atualizados com Sucesso.",
@@ -132,7 +133,7 @@ class UserController {
       }
 
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });  
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 }

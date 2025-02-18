@@ -101,6 +101,8 @@ class AddressController {
     try {
       // Verificar se o cliente realmente existe
       const { idCustomer, idAddress } = req.params;
+      const { zip_code, street, neighborhood, city, state, house_number, complement } = req.body;
+
       const customer = await Customer.findByPk(idCustomer);
 
       if (!customer) {
@@ -110,18 +112,16 @@ class AddressController {
       // Procurar endereço pelo id do endereço
       const address = await Address.findOne({
         attributes: ["id", "zip_code", "street", "neighborhood", "city", "state", "house_number", "complement"],
-        where: { id: idAddress },
-        where: { id_customer: idCustomer }
+        where: { id: idAddress, id_customer: idCustomer }
       });
+      console.log(address)
 
       // Caso não existir o endereço específico
-      if (address.length === 0) {
+      if (!address) {
         return res.status(400).json({ errors: ["Endereço não encontrado."] });
       }
 
-      const addressUpdate = await address.update(req.body, {
-        where: { id_customer: idCustomer } }
-      );
+      const addressUpdate = await address.update({ zip_code, street, neighborhood, city, state, house_number, complement });
 
       return res.status(200).json({ msg: "Endereço Atualizado com Sucesso.", address: addressUpdate})
     } catch (e) {
@@ -153,10 +153,7 @@ class AddressController {
       }
 
       // Procurar endereço pelo id do endereço
-      const address = await Address.findByPk(idAddress, {
-        attributes: ["id", "zip_code", "street", "neighborhood", "city", "state", "house_number", "complement"],
-        where: { id_customer: idCustomer }
-      });
+      const address = await Address.findByPk(idAddress, { where: { id_customer: idCustomer } });
 
       if (!address) {
         return res.status(400).json({ errors: ["O endereço não foi encontrado."] });
@@ -173,7 +170,7 @@ class AddressController {
       }
 
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });  
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 }

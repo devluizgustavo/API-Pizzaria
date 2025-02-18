@@ -130,6 +130,7 @@ class CustomerController {
     try {
       // Pegar o ID enviado na requisição
       const { id } = req.params;
+      const { cpf, name, lastname } = req.body;
 
       // Procurar o cliente
       const customer = await Customer.findByPk(id, {
@@ -143,7 +144,7 @@ class CustomerController {
       }
 
       // Atualizar os dados e mandar pra variável
-      const customerUpdate = await customer.update(req.body);
+      const customerUpdate = await customer.update({ cpf, name, lastname });
 
       return res.status(200).json({ msg: "Dados Atualizados com Sucesso.", customerUpdate})
     } catch (e) {
@@ -181,7 +182,7 @@ class CustomerController {
       }
 
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });  
+      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
     }
   }
 }
