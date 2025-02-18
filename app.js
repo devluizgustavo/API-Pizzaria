@@ -6,6 +6,7 @@ import CustomerRoutes from './src/routes/CustomerRoutes.js';
 import UserRoutes from './src/routes/UserRoutes.js';
 import TokenRoutes from './src/routes/TokenRoutes.js';
 import PizzaRoutes from './src/routes/PizzaRoutes.js';
+import DrinkRoutes from './src/routes/DrinkRoutes.js';
 
 import './src/database';
 
@@ -26,6 +27,7 @@ class App {
     this.app.use('/customers/', CustomerRoutes);
     this.app.use('/tokens/', TokenRoutes);
     this.app.use('/pizzas/', PizzaRoutes);
+    this.app.use('/drinks/', DrinkRoutes);
   }
 }
 
