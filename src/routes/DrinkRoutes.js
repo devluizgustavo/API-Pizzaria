@@ -5,8 +5,8 @@ const router = new Router();
 
 router.get('/', DrinkController.index);
 router.get('/:id', DrinkController.show);
-router.put("/:id", DrinkController.update);
-router.post("/", DrinkController.store);
-router.delete("/:id", DrinkController.delete);
+router.put("/:id", loginRequired, DrinkController.update);
+router.post("/", loginRequired, DrinkController.store);
+router.delete("/:id", loginRequired, DrinkController.delete);
 
 export default router;
