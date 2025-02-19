@@ -19,9 +19,8 @@ class PizzaController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
   async show(req, res) {
@@ -42,13 +41,10 @@ class PizzaController {
     } catch (e) {
       // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
-        return res.status(400).json({
-          errors: e.errors.map(err => err.message)
-        });
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -65,13 +61,10 @@ class PizzaController {
     } catch (e) {
       // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
-        return res.status(400).json({
-          errors: e.errors.map(err => err.message)
-        });
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -98,9 +91,8 @@ class PizzaController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -124,9 +116,8 @@ class PizzaController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }

@@ -20,9 +20,8 @@ class UserController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -37,7 +36,7 @@ class UserController {
 
       if (!user) {
         return res.status(400).json({
-          errors: ["O usuário não existe"]
+          errors: ["O usuário não existe."]
         })
       }
 
@@ -47,9 +46,8 @@ class UserController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -73,9 +71,8 @@ class UserController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -90,7 +87,7 @@ class UserController {
 
       if (!user) {
         return res.status(404).json({
-          msg: ["O cliente não existe"]
+          msg: ["O cliente não existe."]
         });
       }
 
@@ -105,9 +102,8 @@ class UserController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -119,7 +115,7 @@ class UserController {
 
       if (!user) {
         return res.status(404).json({
-          msg: ["O usuário não existe"]
+          msg: ["O usuário não existe."]
         });
       }
 
@@ -131,9 +127,8 @@ class UserController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }

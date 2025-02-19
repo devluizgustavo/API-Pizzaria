@@ -16,7 +16,7 @@ class DrinkController {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -37,7 +37,7 @@ class DrinkController {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -58,7 +58,7 @@ class DrinkController {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -83,7 +83,7 @@ class DrinkController {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -106,7 +106,7 @@ class DrinkController {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }

@@ -15,12 +15,12 @@ class TokenController {
 
       // Caso usuário não seja encontrado
       if (!user) {
-        return res.status(400).json({ errors: ["O usuário não existe"] });
+        return res.status(400).json({ errors: ["O usuário não existe."] });
       }
 
       // Caso a senha esteja incorreta
       if(!(await user.passwordIsValid(password))) {
-        return res.status(400).json({errors: ["Senha inválida"]})
+        return res.status(400).json({errors: ["Senha inválida."]})
       }
 
       // Se o código chegou nessa região é por que o usuário e senha estão corretos. Então extraimos o id de User
@@ -38,9 +38,8 @@ class TokenController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }

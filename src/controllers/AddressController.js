@@ -29,7 +29,12 @@ class AddressController {
 
       return res.status(200).json(filterAddress);
     } catch (e) {
-      return res.status(404).json({ errors: e.errors.map(err => err.message) });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -58,7 +63,12 @@ class AddressController {
 
       return res.status(200).json(filterAddress);
     } catch (e) {
-      return res.status(404).json({ errors: e.errors.map(err => err.message) });
+      // Caso de erros de validação
+      if (e.errors && Array.isArray(e.errors)) {
+        return res.status(400).json({ errors: e.errors.map(err => err.message) });
+      }
+      // Caso de erros do servidor
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -86,14 +96,12 @@ class AddressController {
       if (e.name === 'SequelizeUniqueConstraintError') {
         return res.status(400).json({ errors: [`O cliente já possui esse endereço`] })
       }
-
       // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -129,9 +137,8 @@ class AddressController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -168,9 +175,8 @@ class AddressController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }

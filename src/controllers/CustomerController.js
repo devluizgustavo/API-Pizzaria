@@ -32,9 +32,8 @@ class CustomerController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -62,15 +61,14 @@ class CustomerController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async store(req, res) {
     // Pegar os dados do cliente na requisição
-    const { cpf="", name="", lastname, contactList, addressList } = req.body;
+    const { cpf, name, lastname, contactList, addressList } = req.body;
     const userFromTokenID = req.id_user;
 
     // Instanciar o Sequelize
@@ -120,9 +118,8 @@ class CustomerController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -130,7 +127,7 @@ class CustomerController {
     try {
       // Pegar o ID enviado na requisição
       const { id } = req.params;
-      const { cpf, name, lastname } = req.body;
+      const { cpf, name, lastname, contactList } = req.body;
 
       // Procurar o cliente
       const customer = await Customer.findByPk(id, {
@@ -152,9 +149,8 @@ class CustomerController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -180,9 +176,8 @@ class CustomerController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-
       // Caso de erros do servidor
-      return res.status(500).json({ errors: [e.message || "Erro interno do servidor."] });
+      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }
