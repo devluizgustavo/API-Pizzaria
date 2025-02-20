@@ -2,6 +2,7 @@ import { Router } from "express";
 import CustomerController from "../controllers/CustomerController.js";
 import AddressController from "../controllers/AddressController.js";
 import ContactController from "../controllers/ContactController.js";
+import OrderController from "../controllers/OrderController.js";
 import loginRequired from "../middleware/loginRequired.js";
 const router = new Router();
 
@@ -25,6 +26,13 @@ router.get("/:idCustomer/contacts/:idContact", loginRequired, ContactController.
 router.post("/:idCustomer/contacts/", loginRequired, ContactController.store);
 router.put("/:idCustomer/contacts/:idContact", loginRequired, ContactController.update);
 router.delete("/:idCustomer/contacts/:idContact", loginRequired, ContactController.delete);
+
+// Rotas de pedidos
+router.get("/:idCustomer/orders/", OrderController.index);
+router.get("/:idCustomer/orders/:idOrder", OrderController.show);
+router.post("/:idCustomer/orders/", OrderController.store);
+router.put("/:idCustomer/orders/:idOrder", OrderController.update);
+router.delete("/:idCustomer/orders/:idOrder", OrderController.delete);
 
 
 export default router;
