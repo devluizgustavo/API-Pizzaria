@@ -14,6 +14,7 @@ module.exports = {
         type: Sequelize.STRING(45),
         allowNull: false,
         unique: true,
+        primaryKey: true
       },
       size: {
         type: Sequelize.STRING(30),

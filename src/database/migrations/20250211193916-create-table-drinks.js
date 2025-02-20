@@ -14,6 +14,7 @@ module.exports = {
         type: Sequelize.STRING(45),
         allowNull: false,
         unique: true,
+        primaryKey: true,
       },
       price: {
         type: Sequelize.DECIMAL(5, 2),

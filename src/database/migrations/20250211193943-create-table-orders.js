@@ -20,13 +20,17 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
+      payment_method: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       dt_order: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true
       },
       status: {
         type: Sequelize.STRING(45),
-        allowNull: false
+        allowNull: true
       },
       created_at: {
         type: Sequelize.DATE,

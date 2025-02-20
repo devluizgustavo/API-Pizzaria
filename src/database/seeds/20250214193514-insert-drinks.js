@@ -5,7 +5,7 @@ module.exports = {
   up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Drinks', [
       {
-        drink_name: 'Coca-Cola',
+        drink_name: 'Coca Cola',
         price: 17.00,
         stock_qnt: 30,
         created_at: new Date(),
@@ -36,6 +36,6 @@ module.exports = {
   },
 
   down (queryInterface, Sequelize) {
-
+    return queryInterface.bulkDelete("drinks", null, {})
   }
 };
