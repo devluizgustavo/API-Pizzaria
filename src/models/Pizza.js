@@ -7,6 +7,7 @@ export default class Pizza extends Model {
         pizza_name: {
           type: DataTypes.STRING(45),
           allowNull: false,
+          primaryKey: true,
           unique: {
             msg: "Já existe uma pizza com esse nome."
           },
@@ -67,6 +68,7 @@ export default class Pizza extends Model {
     return this;
   }
 
-  // static associate(models) {
-  // }
+   static associate(models) {
+    this.belongsTo(models.OrderPizza, { foreignKey: 'pizza_name', as: 'orders-by-pizzas', });
+  }
 }

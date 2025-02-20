@@ -53,6 +53,7 @@ export default class Customer extends Model {
   static associate(models) {
     this.hasMany(models.Address, { foreignKey: 'id_customer' });
     this.hasMany(models.Contact, { foreignKey: 'id_customer' });
+    this.hasMany(models.Order, { foreignKey: 'id_customer' })
     this.belongsTo(models.User, { foreignKey: 'id', as: 'users' });
   }
 }

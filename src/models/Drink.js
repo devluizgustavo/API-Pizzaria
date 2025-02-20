@@ -7,6 +7,7 @@ export default class Drink extends Model {
         drink_name: {
           type: DataTypes.STRING(45),
           allowNull: false,
+          primaryKey: true,
           unique: {
             msg: "A bebida já existe."
           },
@@ -15,7 +16,7 @@ export default class Drink extends Model {
               msg: "Nome da bebida não pode ser nulo."
             },
             is: {
-              args: /^[A-Za-zÀ-ÿ\s]+$/i,
+              args: /^[A-Za-zÀ-ÿ\s-]+$/i,
               msg: "O campo nome da bebida deve conter apenas letras."
             }
           },
@@ -54,6 +55,7 @@ export default class Drink extends Model {
     return this;
   }
 
-  // static associate(models) {
-  // }
+  static associate(models) {
+    this.hasMany(models.OrderDrink, { foreignKey: 'drink_name' });
+  }
 }
