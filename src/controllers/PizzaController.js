@@ -27,9 +27,8 @@ class PizzaController {
     try {
       const { id } = req.params;
 
-      const pizza = await Pizza.findByPk(id, {
-        attributes: ["id", "pizza_name", "size", "description", "price"]
-      });
+      const pizza = await Pizza.findOne({ where: { id: id }, attributes: ["id", "pizza_name", "size", "description", "price"] });
+
 
       if (!pizza) {
         return res.status(400).json({
@@ -74,9 +73,7 @@ class PizzaController {
       const { pizza_name, size, description, price } = req.body;
 
       // Buscar a pizza pelo ID
-      const pizza = await Pizza.findByPk(id, {
-        attributes: ["id", "pizza_name", "size", "description", "price"]
-      });
+      const pizza = await Pizza.findOne({ where: { id: id }, attributes: ["id", "pizza_name", "size", "description", "price"] });
 
       if (!pizza) {
         return res.status(400).json({ errors: ["A pizza não foi encontrada ou não existe."] });
@@ -101,7 +98,8 @@ class PizzaController {
       const { id } = req.params;
 
       // Buscar a pizza pelo ID
-      const pizza = await Pizza.findByPk(id);
+      const pizza = await Pizza.findOne({ where: { id: id } });
+
 
       if (!pizza) {
         return res.status(400).json({ errors: ["A pizza não foi encontrada ou não existe."] });

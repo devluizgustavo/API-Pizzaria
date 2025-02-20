@@ -24,7 +24,7 @@ class DrinkController {
     try {
       const { id } = req.params;
 
-      const drink = await Drink.findByPk(id, { attributes: ["id", "drink_name", "price", "stock_qnt"] });
+      const drink = await Drink.findOne({ where: { id: id }, attributes: ["id", "drink_name", "price", "stock_qnt"] });
 
       if (!drink) {
         return res.status(400).json({ errors: ["A bebida não existe."] });
@@ -68,7 +68,9 @@ class DrinkController {
       const { id } = req.params;
       const { drink_name, price, stock_qnt } = req.body;
 
-      const drink = await Drink.findByPk(id, { attributes: ["id", "drink_name", "price", "stock_qnt"] });
+      console.log(id);
+
+      const drink = await Drink.findOne({ where: { id: id }, attributes: ["id", "drink_name", "price", "stock_qnt"] });
 
       if (!drink) {
         return res.status(400).json({ errors: ["A bebida não existe."] });
@@ -91,7 +93,7 @@ class DrinkController {
     try {
       const { id } = req.params;
 
-      const drink = await Drink.findByPk(id);
+      const drink = await Drink.findOne({ where: { id: id } });
 
       if (!drink) {
         return res.status(400).json({ errors: ["A bebida não existe."] });
