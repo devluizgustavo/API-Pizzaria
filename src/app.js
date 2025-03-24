@@ -2,14 +2,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 
-import UserRoutes from './src/routes/UserRoutes.js';
-import TokenRoutes from './src/routes/TokenRoutes.js';
-import PizzaRoutes from './src/routes/PizzaRoutes.js';
-import DrinkRoutes from './src/routes/DrinkRoutes.js';
-import OrderRoutes from './src/routes/OrderRoutes.js';
-import CustomerRoutes from './src/routes/CustomerRoutes.js';
+import UserRoutes from './routes/UserRoutes.js';
+import TokenRoutes from './routes/TokenRoutes.js';
+import PizzaRoutes from './routes/PizzaRoutes.js';
+import DrinkRoutes from './routes/DrinkRoutes.js';
+import OrderRoutes from './routes/OrderRoutes.js';
+import CustomerRoutes from './routes/CustomerRoutes.js';
 
-import './src/database';
+import './database/index.js';
 
 class App {
   constructor() {
