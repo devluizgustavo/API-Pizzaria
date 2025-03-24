@@ -4,9 +4,10 @@ import removeNull from "../utils/removeNull";
 
 class AddressController {
   async index(req, res) {
+    const { idCustomer } = req.params;
+
     try {
       // Verificar se o cliente realmente existe
-      const { idCustomer } = req.params;
       const customer = await Customer.findByPk(idCustomer);
 
       if (!customer) {
@@ -29,19 +30,17 @@ class AddressController {
 
       return res.status(200).json(filterAddress);
     } catch (e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async show(req, res) {
+    const { idCustomer, zipCode } = req.params;
+
     try {
-      // Verificar se o cliente realmente existe
-      const { idCustomer, zipCode } = req.params;
+      // Verificar a existência do cliente
       const customer = await Customer.findByPk(idCustomer);
 
       if (!customer) {
@@ -63,36 +62,30 @@ class AddressController {
 
       return res.status(200).json(filterAddress);
     } catch (e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async store(req, res) {
+    const { idCustomer } = req.params;
+
     try {
-      // Verificar se o cliente realmente existe
-      const { idCustomer } = req.params;
       const customer = await Customer.findByPk(idCustomer);
 
       if (!customer) {
         return res.status(400).json({ errors: ["O cliente não existe"] })
       }
+
       // Desestruturação de todos os campos necessários para criar o endereço
       const { zip_code, street, neighborhood, city, state, house_number, complement } = req.body;
 
-      const address = await Address.create({ zip_code, street, neighborhood, city, state, house_number, complement, id_customer: idCustomer });
+      await Address.create({ zip_code, street, neighborhood, city, state, house_number, complement, id_customer: idCustomer });
 
-      return res.status(200).json({
-        message: "Endereço cadastrado com sucesso!",
-        address: address
-      });
+      return res.status(200).json({ msg: "Endereço cadastrado com sucesso!" });
     } catch (e) {
-      console.log(e);
-      // Caso o endereço novo seja igual a algum endereço já vinculado no cliente
+      // Caso o endereço novo seja igual a algum endereço já vinculado no CLIENTE em questão
       if (e.name === 'SequelizeUniqueConstraintError') {
         return res.status(400).json({ errors: [`O cliente já possui esse endereço`] })
       }
@@ -100,21 +93,19 @@ class AddressController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async update(req, res) {
+    const { idCustomer, idAddress } = req.params;
+    const { zip_code, street, neighborhood, city, state, house_number, complement } = req.body;
+
     try {
       // Verificar se o cliente realmente existe
-      const { idCustomer, idAddress } = req.params;
-      const { zip_code, street, neighborhood, city, state, house_number, complement } = req.body;
-
       const customer = await Customer.findByPk(idCustomer);
 
       if (!customer) {
-        return res.status(400).json({ errors: ["O cliente não existe"] })
+        return res.status(400).json({ errors: ["O cliente não existe"] });
       }
 
       // Procurar endereço pelo id do endereço
@@ -122,30 +113,27 @@ class AddressController {
         attributes: ["id", "zip_code", "street", "neighborhood", "city", "state", "house_number", "complement"],
         where: { id: idAddress, id_customer: idCustomer }
       });
-      console.log(address)
 
       // Caso não existir o endereço específico
       if (!address) {
         return res.status(400).json({ errors: ["Endereço não encontrado."] });
       }
 
-      const addressUpdate = await address.update({ zip_code, street, neighborhood, city, state, house_number, complement });
+      await address.update({ zip_code, street, neighborhood, city, state, house_number, complement });
 
-      return res.status(200).json({ msg: "Endereço Atualizado com Sucesso.", address: addressUpdate})
+      return res.status(200).json({ msg: "Endereço atualizado com sucesso." });
     } catch (e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async delete(req, res) {
+    const { idCustomer, idAddress } = req.params;
+
     try {
       // Verificar se o cliente realmente existe
-      const { idCustomer, idAddress } = req.params;
       const customer = await Customer.findByPk(idCustomer);
 
       if (!customer) {
@@ -171,12 +159,9 @@ class AddressController {
 
       return res.status(200).json({ msg: "O endereço foi apagado com sucesso." });
     } catch (e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }

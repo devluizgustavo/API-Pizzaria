@@ -22,7 +22,7 @@ class CustomerController {
         ]
       });
 
-      if (!customers) {
+      if (!customers || customers.length === 0) {
         return res.status(400).json({ errors: ["Nenhum cliente foi encontrado"] });
       }
 
@@ -32,15 +32,13 @@ class CustomerController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async show(req, res) {
-    try {
-      const { id } = req.params;
+    const { id } = req.params;
 
+    try {
       const customer = await Customer.findByPk(id,{
         attributes: ["id", "name", "lastname", "cpf"],
         include: [
@@ -57,12 +55,9 @@ class CustomerController {
 
       return res.status(200).json(customer);
     } catch(e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -78,7 +73,7 @@ class CustomerController {
     try {
       // Caso dados pessoais do cliente não sejam enviados
       if (!contactList || contactList.length === 0) {
-        return res.status(400).json({ errors: ["É necessário que haja ao menos 1 telefone para contato.", "É necessário que ao menos um endereço seja cadastrado."] });
+        return res.status(400).json({ errors: ["É necessário que haja ao menos 1 telefone para contato."] });
       }
       if (!addressList || addressList.length === 0) {
         return res.status(400).json({ errors: ["O cliente precisa ter ao menos um endereço cadastrado."] });
@@ -118,66 +113,50 @@ class CustomerController {
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async update(req, res) {
-    try {
-      // Pegar o ID enviado na requisição
-      const { id } = req.params;
-      const { cpf, name, lastname, contactList } = req.body;
+    const { id } = req.params;
+    const { cpf, name, lastname } = req.body;
 
+    try {
       // Procurar o cliente
-      const customer = await Customer.findByPk(id, {
-        attributes: ["id", "cpf", "name", "lastname"]
-      });
+      const customer = await Customer.findByPk(id, { attributes: ["id", "cpf", "name", "lastname"] });
 
       if (!customer) {
-        return res.status(400).json({
-          errors: ["O cliente não existe."]
-        });
+        return res.status(400).json({ errors: ["O cliente não existe."] });
       }
 
       // Atualizar os dados e mandar pra variável
-      const customerUpdate = await customer.update({ cpf, name, lastname });
+      await customer.update({ cpf, name, lastname });
 
-      return res.status(200).json({ msg: "Dados Atualizados com Sucesso.", customerUpdate})
+      return res.status(200).json({ msg: "Dados atualizados com sucesso." })
     } catch (e) {
       // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async delete(req, res) {
-    try {
-      const { id } = req.params;
+    const { id } = req.params;
 
+    try {
       const customer = await Customer.findByPk(id);
 
       if (!customer) {
-        return res.status(400).json({
-          errors: ["Cliente não existe"]
-        });
+        return res.status(400).json({ errors: ["Cliente não existe"] });
       }
 
       await customer.destroy();
 
-      return res.status(200).json({
-        msg: "Cliente deletado com sucesso."
-      });
+      return res.status(200).json({ msg: "Cliente deletado com sucesso." });
     } catch (e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }

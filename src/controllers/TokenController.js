@@ -3,11 +3,11 @@ import jwt from 'jsonwebtoken';
 
 class TokenController {
   async store(req, res) {
-    try {
-      const { login = "", password = "" } = req.body;
+    const { login = "", password = "" } = req.body;
 
-      if (!login || !password) {
-        return res.status(400).json({ errors: ["Os dados não foram enviados."] });
+    try {
+      if (!login && !password) {
+        return res.status(400).json({ errors: ["Login e senha precisam ser enviados."] });
       }
 
       // Procurar usuário pelo login para verificar a existência
@@ -34,12 +34,9 @@ class TokenController {
 
       return res.status(200).json({ token });
     } catch(e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }
