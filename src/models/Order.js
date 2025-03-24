@@ -1,18 +1,19 @@
 import { Model, DataTypes } from 'sequelize';
+import formatDate from '../utils/formateDate';
 
 export default class Order extends Model {
   static init(sequelize) {
     super.init(
       {
         dt_order: {
-          type: DataTypes.DATE,
-          defaultValue: DataTypes.NOW,
-          allowNull: true
+          type: DataTypes.TEXT,
+          defaultValue: formatDate(),
+          allowNull: false,
         },
         status: {
           type: DataTypes.STRING(45),
           defaultValue: "Em andamento",
-          allowNull: true,
+          allowNull: false,
         },
         payment_method: {
           type: DataTypes.STRING,
@@ -21,8 +22,13 @@ export default class Order extends Model {
             notNull: {
               msg: "Defina a forma de pagamento."
             }
-          }
+          },
         },
+        order_price: {
+          type: DataTypes.DECIMAL(10, 2),
+          allowNull: true,
+          defaultValue: 0.00
+        }
       }, {
         sequelize,
         tableName: "orders",
@@ -34,6 +40,8 @@ export default class Order extends Model {
 
   static associate(models) {
     this.belongsTo(models.Customer, { foreignKey: 'id', as: 'customers' });
+    this.belongsTo(models.Production, { foreignKey: 'production_id', as: 'production' });
+    this.hasMany(models.Delivery, { foreignKey: 'id_order' });
     this.hasMany(models.OrderDrink, { foreignKey: 'id_order' });
     this.hasMany(models.OrderPizza, { foreignKey: 'id_order' });
   }
