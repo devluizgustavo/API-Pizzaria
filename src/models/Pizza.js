@@ -15,10 +15,6 @@ export default class Pizza extends Model {
             notNull: {
               msg: "O campo nome da pizza é obrigatório.",
             },
-            is: {
-              args: /^[A-Za-zÀ-ÿ\s]+$/i,
-              msg: "O campo nome da pizza deve conter apenas letras."
-            }
           }
         },
         size: {

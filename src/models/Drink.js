@@ -16,7 +16,7 @@ export default class Drink extends Model {
               msg: "Nome da bebida não pode ser nulo."
             },
             is: {
-              args: /^[A-Za-zÀ-ÿ\s-]+$/i,
+              args: /^[A-Za-zÀ-ÿ0-9\s-]+$/i,
               msg: "O campo nome da bebida deve conter apenas letras."
             }
           },

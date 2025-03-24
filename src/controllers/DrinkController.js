@@ -11,12 +11,9 @@ class DrinkController {
 
       return res.status(200).json(drinks);
     } catch(e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
@@ -32,67 +29,59 @@ class DrinkController {
 
       return res.status(200).json(drink);
     } catch(e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async store(req, res) {
+    const { drink_name="", price="", stock_qnt="" } = req.body;
     try {
-      const { drink_name="", price="", stock_qnt="" } = req.body;
-
       if (!drink_name || !price || !stock_qnt) {
         return res.status(400).json({ errors: ["Os dados não foram enviados."] });
       }
 
-      const newDrink = await Drink.create({ drink_name, price, stock_qnt });
+      await Drink.create({ drink_name, price, stock_qnt });
 
-      return res.status(200).json({ msg: "A bebida foi criada com sucesso!", drink: newDrink });
+      return res.status(200).json({ msg: "A bebida foi criada com sucesso!" });
     } catch(e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
 
   async update(req, res) {
+    const { id } = req.params;
+    const { price, stock_qnt } = req.body;
+
     try {
-      const { id } = req.params;
-      const { drink_name, price, stock_qnt } = req.body;
-
-      console.log(id);
-
-      const drink = await Drink.findOne({ where: { id: id }, attributes: ["id", "drink_name", "price", "stock_qnt"] });
+      const drink = await Drink.findOne({
+        where: { id },
+        attributes: ["id", "drink_name","price", "stock_qnt"],
+      });
 
       if (!drink) {
         return res.status(400).json({ errors: ["A bebida não existe."] });
       }
+      
+      await drink.update({ price: price, stock_qnt: parseInt(drink.stock_qnt) + parseInt(stock_qnt) });
 
-      const drinkAtt = await drink.update({ drink_name, price, stock_qnt })
-
-      return res.status(200).json({ msg: "Bebida atualizada com sucesso!", drink: drinkAtt });
+      return res.status(200).json({ msg: "Bebida atualizada com sucesso!" });
     } catch(e) {
-      // Caso de erros de validação
+      console.log(e);
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 
   async delete(req, res) {
-    try {
-      const { id } = req.params;
+    const { id } = req.params;
 
+    try {
       const drink = await Drink.findOne({ where: { id: id } });
 
       if (!drink) {
@@ -103,12 +92,9 @@ class DrinkController {
 
       return res.status(200).json({ msg: "Bebida deletada com sucesso." });
     } catch(e) {
-      // Caso de erros de validação
       if (e.errors && Array.isArray(e.errors)) {
         return res.status(400).json({ errors: e.errors.map(err => err.message) });
       }
-      // Caso de erros do servidor
-      return res.status(500).json({ errors: ["Erro interno do servidor."] });
     }
   }
 }
