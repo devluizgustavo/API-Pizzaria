@@ -27,14 +27,6 @@ router.post("/:idCustomer/contacts/", loginRequired, ContactController.store);
 router.put("/:idCustomer/contacts/:idContact", loginRequired, ContactController.update);
 router.delete("/:idCustomer/contacts/:idContact", loginRequired, ContactController.delete);
 
-// Rotas de pedidos
-router.get("/:idCustomer/orders/", OrderController.index);
-router.get("/:idCustomer/orders/:idOrder", OrderController.show);
-router.post("/:idCustomer/orders/", OrderController.store);
-router.put("/:idCustomer/orders/:idOrder", OrderController.update);
-router.delete("/:idCustomer/orders/:idOrder", OrderController.delete);
-
-
 export default router;
 
 
