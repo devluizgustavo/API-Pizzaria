@@ -24,13 +24,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      order_price: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: true,
+      },
       dt_order: {
-        type: Sequelize.DATE,
-        allowNull: true
+        type: Sequelize.TEXT,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
       },
       status: {
         type: Sequelize.STRING(45),
-        allowNull: true
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,

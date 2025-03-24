@@ -10,8 +10,10 @@ import Drink from "../models/Drink";
 import Order from "../models/Order";
 import OrderPizza from '../models/OrderPizza'
 import OrderDrink from "../models/OrderDrink";
+import Production from "../models/Production";
+import Delivery from "../models/Delivery";
 
-const models = [Address, Customer, Contact, User, Pizza, Drink, Order, OrderPizza, OrderDrink];
+const models = [Address, Customer, Contact, User, Pizza, Drink, Order, OrderPizza, OrderDrink, Production, Delivery];
 
 const connection = new Sequelize(database);
 
