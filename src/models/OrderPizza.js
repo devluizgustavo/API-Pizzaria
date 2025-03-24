@@ -8,10 +8,9 @@ export default class OrderPizza extends Model {
           type: DataTypes.STRING,
           allowNull: false,
           validate: {
-            is: {
-              args: /^[A-Za-zÀ-ÿ\s]+$/i,
-              msg: "O nome da pizza deve conter apenas letras."
-            },
+            notNull: {
+              msg: "O campo nome da pizza não pode estar vazio."
+            }
           }
         },
         quantity: {
@@ -35,5 +34,6 @@ export default class OrderPizza extends Model {
   static associate(models) {
     this.belongsTo(models.Order, { foreignKey: 'id_order' });
     this.belongsTo(models.Pizza, { foreignKey: 'pizza_name' });
+    this.belongsTo(models.Production, { foreignKey: 'production_id' });
   }
 }

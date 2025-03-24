@@ -42,5 +42,6 @@ export default class OrderDrink extends Model {
   static associate(models) {
     this.belongsTo(models.Order, { foreignKey: 'id_order' });
     this.belongsTo(models.Drink, { foreignKey: 'drink_name' });
+    this.belongsTo(models.Production, { foreignKey: 'production_id' });
   }
 }
